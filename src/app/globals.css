@@ -8,7 +8,6 @@
   --color-foreground: var(--foreground);
   --font-poppins: var(--font-poppins);
   --font-baloo: var(--font-baloo);
-  --font-jamjuree: var(--font-jamjuree);
   --color-text-inactive: #BCBCBC;
   --color-text-active: #27BDBE;
   --color-monotone: #F8F8F8;
@@ -166,6 +165,11 @@ button:hover {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+body {
+  font-family: Poppins, Helvetica, sans-serif;
+  background-color: #E4E3E3;
 }
 
 @layer base {

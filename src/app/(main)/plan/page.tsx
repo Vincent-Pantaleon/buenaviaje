@@ -2,9 +2,8 @@ import { Plan } from "@/components/page/plan"
 
 const PlanPage = () => {
     return (
-        <Plan/>
+        <Plan />
     )
 }
-
 
 export default PlanPage
