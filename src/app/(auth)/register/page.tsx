@@ -1,7 +1,9 @@
+import { Register } from "@/components/page/register"
+
 const RegisterPage = () => {
     return (
-        <div>
-            Register Page
+        <div className="rounded-t-2xl bg-text-active">
+            <Register/> 
         </div>
     )
 }

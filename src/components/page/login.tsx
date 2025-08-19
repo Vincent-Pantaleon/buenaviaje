@@ -31,7 +31,8 @@ const Login = () => {
 
     return (
         <>
-            <form className="flex flex-col gap-y-4 h-full" onSubmit={HandleLogin}>
+            <h1 className="font-baloo text-3xl text font-bold text-center text-white p-4">Welcome back!</h1>
+            <form className="flex flex-col gap-y-4 h-full text-white" onSubmit={HandleLogin}>
                 <div className="bg-white rounded-2xl">
                     <Input name="email" type="email" icon="person" placeholder="Email" className="border-0"/>
                 </div>
@@ -50,6 +51,10 @@ const Login = () => {
                     />
                 </div>
 
+                <div className="flex justify-end">
+                    <Link href={'#'} className="underline underline-offset-2">Forgot Password?</Link>
+                </div>
+
                 {error && (<p className="text-red-600 text-center">{error}</p>)}
 
                 <Button 
@@ -59,9 +64,10 @@ const Login = () => {
                 >
                     {isLogging ? "Logging in..." : "Login"}
                 </Button>
-            </form>
 
-            <Link href="/register">Dont have an account?</Link>
+                <p className="text-center">Dont have an account? <Link href="/register" className="underline underline-offset-2">Signup</Link></p>
+                
+            </form>
         </>
     )
 }
