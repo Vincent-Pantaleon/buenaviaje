@@ -2,13 +2,15 @@
 
 import { createClient } from "@/utils/supabase/client";
 
-import { MapContainer, TileLayer, Marker, Popup, CircleMarker } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import L from "leaflet";
+
+import { Map, APIProvider, AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Input } from "../input";
-import { Button } from "../button";
+import { Input } from "../../../components/input";
+import { Button } from "../../../components/button";
 import { useRouter } from "next/navigation";
 
 // Fix default marker path issues with Next.js
@@ -35,7 +37,7 @@ const filters = [
 ]
 
 const MapView = () => {
-    const center: [number, number] = [8.974, 125.410]
+    const center = {lat: 8.974, lng: 125.410}
     const supabase = createClient()
     const router = useRouter()
 
@@ -75,35 +77,23 @@ const MapView = () => {
                 </div>
             </div>
 
-            <MapContainer
-                center={center} // latitude & longitude
-                zoom={12}
-                scrollWheelZoom={true}
-                style={{ height: "100vh", width: "100%" }}
-                zoomControl={false}
-            >
-            {/* TileLayer is the actual map tiles (we’ll use OpenStreetMap here) */}
-                <TileLayer url="https://cartodb-basemaps-a.global.ssl.fastly.net/light_nolabels/{z}/{x}/{y}.png" />
-                <TileLayer url="https://cartodb-basemaps-a.global.ssl.fastly.net/light_only_labels/{z}/{x}/{y}.png" />
-
-                {/* Example Marker with Popup */}
-                {data?.map((location, index) => (
-                    <Marker 
-                        key={index} 
-                        position={[location.latitude, location.longitude]} 
-                        eventHandlers={{
-                            click: () => {setSelectedLocation(location); setOpenFilter(false)}
-                        }}
-
-                    >
-                        <Popup>
-                            {location.name}
-                        </Popup>
-                    </Marker>
-
-                ))}
-                
-            </MapContainer>
+            <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API!}>
+                <Map
+                    defaultCenter={center}
+                    defaultZoom={13}
+                    mapId={process.env.NEXT_PUBLIC_GOOGLE_MAPS_ID!}
+                    disableDefaultUI={true}
+                >
+                    {data?.map((item, index) => (
+                        <AdvancedMarker key={index} position={{ lat: item.latitude, lng: item.longitude}} onClick={() => {setSelectedLocation(item); setOpenFilter(false)}}>
+                            <Pin
+                                background={'#27BDBE'}
+                                glyphColor={'white'}
+                            />
+                        </AdvancedMarker>
+                    ))}
+                </Map>
+            </APIProvider>
 
             {/* Replace with a better modals */}
             {selectedLocation && (
