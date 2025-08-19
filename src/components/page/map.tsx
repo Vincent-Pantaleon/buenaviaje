@@ -7,7 +7,6 @@ import "leaflet/dist/leaflet.css"
 import L from "leaflet";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Input } from "../input";
 import { Button } from "../button";
 import { useRouter } from "next/navigation";

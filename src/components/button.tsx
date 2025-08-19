@@ -4,6 +4,7 @@ interface ButtonProps {
     children?: React.ReactNode
     onClick?: () => void
     type?: "button" | "reset" | "submit"
+    isDisabled?: boolean
 }
 
 const Button = ({
@@ -11,13 +12,15 @@ const Button = ({
     icon,
     children,
     onClick,
-    type
+    type,
+    isDisabled = false
 }: ButtonProps) => {
     return (
         <button 
-            className={`${className}`}
+            className={`${className} flex justify-center items-center p-2`}
             type={type}
             onClick={onClick}
+            disabled={isDisabled}
         >
             {icon && (
                 <span className="material-symbols-outlined">{icon}</span>
