@@ -45,6 +45,7 @@ const Login = () => {
                         className="border-0"
                     />
                     <Button
+                        className="text-black"
                         icon={isVisible ? "visibility_off" : "visibility"}  // 👈 change icon too if you like
                         type="button"
                         onClick={() => setIsVisible(prev => !prev)}   // 👈 correct toggle

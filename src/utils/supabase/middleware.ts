@@ -42,11 +42,22 @@ export async function updateSession(request: NextRequest) {
     !request.nextUrl.pathname.startsWith('/login') &&
     !request.nextUrl.pathname.startsWith('/auth') &&
     !request.nextUrl.pathname.startsWith('/error') &&
-    !request.nextUrl.pathname.startsWith('/register')
+    !request.nextUrl.pathname.startsWith('/register') &&
+    !request.nextUrl.pathname.startsWith('/check-email')
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
     url.pathname = '/login' 
+    return NextResponse.redirect(url)
+  }
+
+  if (
+    user &&
+    !user.email_confirmed_at &&
+    !request.nextUrl.pathname.startsWith('/check-email')
+  ) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/check-email'
     return NextResponse.redirect(url)
   }
 

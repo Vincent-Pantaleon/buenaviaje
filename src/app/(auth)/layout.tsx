@@ -1,7 +1,5 @@
 'use client'
 
-import { Input } from "@/components/input"
-import { Button } from "@/components/button"
 import Image from "next/image"
 
 type AuthLayoutProps = {
@@ -15,12 +13,12 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
     <div className="font-poppins flex flex-col h-screen">
       {/* Logo Section */}
-      <div className="flex flex-col justify-center items-center flex-[1] bg-green-400">
+      <div className="flex flex-col justify-center items-center flex-[1]">
         <Image alt="Logo" src={logoLink} width={300} height={154} priority />
       </div>
 
       {/* Children Section */}
-      <div className="flex flex-col justify-end bg-blue-500 overflow-hidden">
+      <div className="flex flex-col justify-end overflow-hidden">
         {children} 
       </div>
     </div>

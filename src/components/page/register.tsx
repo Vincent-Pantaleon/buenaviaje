@@ -6,17 +6,37 @@ import Link from "next/link"
 import { Button } from "../button"
 import { Input } from "../input"
 
+import { RegisterUser } from "@/handlers/auth/register"
 
 // TODO: Add Register function
 const Register = () => {
     const [isPasswordVisible,  setIsPasswordVisible] = useState<boolean>(false)
     const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState<boolean>(false)
     const [isLogging, setIsLogging] = useState<boolean>(false)
+    const [error, setError] = useState<string>('')
+
+    const HandleRegister = async (formData: FormData) => {
+        setIsLogging(true)
+        
+        const password = formData.get("password") as string
+        const confirmPassword = formData.get("confirm_password") as string
+
+        if (password !== confirmPassword) {
+            setError('Passwords do not match')
+        }
+
+        const result = await RegisterUser(formData)
+        
+        if (result?.error) {
+            setIsLogging(false)
+            setError(result.error)
+        }
+    }
 
     return (
         <>
             <h1 className="font-baloo text-3xl text font-bold text-center text-white mt-4">Hello!</h1>
-            <form className="p-4 flex flex-col gap-y-4">
+            <form className="p-4 flex flex-col gap-y-4" action={HandleRegister}>
                 <Input name="username" type="text" icon="person" placeholder="Username"/>
                 <Input name="email" type="email" icon="email" placeholder="Email"/>
                 <div className="bg-white rounded-3xl flex flex-row">
@@ -47,6 +67,8 @@ const Register = () => {
                         onClick={() => setIsConfirmPasswordVisible(prev => !prev)}   // 👈 correct toggle
                     />
                 </div>
+
+                {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
                 <Button 
                     type="submit" 
